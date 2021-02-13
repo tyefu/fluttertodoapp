@@ -29,17 +29,23 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
 
 
   fetchTodoList() async {
+    print('00--------------');
     carendarTodos = {};
     final provider = Provider.of<TodosProvider>(context);
 
     List<Todo> x = await _dbHelper.fetchTodos();
     x.forEach((element) {
-      DateTime formattedDate = DateTime.parse(DateFormat('yyyy-MM-dd')
-          .format(DateTime.parse(element.createdTime.toString())));
-      if (carendarTodos.containsKey(formattedDate)) {
-        carendarTodos[formattedDate].add(element.title);
-      } else {
-        carendarTodos[formattedDate] = [element.title];
+
+      if(element.createdTime == ''){
+
+      }else {
+        DateTime formattedDate = DateTime.parse(DateFormat('yyyy-MM-dd')
+            .format(DateTime.parse(element.createdTime.toString())));
+        if (carendarTodos.containsKey(formattedDate)) {
+          carendarTodos[formattedDate].add(element.title);
+        } else {
+          carendarTodos[formattedDate] = [element.title];
+        }
       }
     });
     // provider.todos = x;
@@ -280,14 +286,17 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
     setState(() {
       _dbHelper = DatabaseHelper.instance;
     });
-    _calendarController = CalendarController();
+
+
   }
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
+
     fetchTodoList();
+    _calendarController = CalendarController();
   }
 
   @override

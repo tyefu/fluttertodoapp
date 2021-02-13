@@ -21,82 +21,16 @@ class _CompletedListWidgetState extends State<CompletedListWidget> {
 
 
   refreshTodoList() async {
-    int week = DateTime.now().weekday;
     final provider = Provider.of<TodosProvider>(context);
-    List<Todo> x = await _dbHelper.fetchTodos();
+    List<Todo> allList = await _dbHelper.fetchTodos();
 
-    switch (week-1) {
-      case 0:
-        {
-          setState(() {
-            provider.todos = x
-                .where((todo) => todo.isDone == 1 && todo.monday == 1)
-                .toList();
-            _todos = provider.todos;
-          });
-          break;
-        }
-      case 1:
-        {
-          setState(() {
-            provider.todos = x
-                .where((todo) => todo.isDone == 1 && todo.tuesday == 1)
-                .toList();
-            _todos = provider.todos;
-          });
-          break;
-        }
-      case 2:
-        {
-          setState(() {
-            provider.todos = x
-                .where((todo) => todo.isDone == 1 && todo.wednesday == 1)
-                .toList();
-            _todos = provider.todos;
-          });
-          break;
-        }
-      case 3:
-        {
-          setState(() {
-            provider.todos = x
-                .where((todo) => todo.isDone == 1 && todo.thursday == 1)
-                .toList();
-            _todos = provider.todos;
-          });
-          break;
-        }
-      case 4:
-        {
-          setState(() {
-            provider.todos = x
-                .where((todo) => todo.isDone == 1 && todo.friday == 1)
-                .toList();
-            _todos = provider.todos;
-          });
-          break;
-        }
-      case 5:
-        {
-          setState(() {
-            provider.todos = x
-                .where((todo) => todo.isDone == 1 && todo.saturday == 1)
-                .toList();
-            _todos = provider.todos;
-          });
-          break;
-        }
-      case 6:
-        {
-          setState(() {
-            provider.todos = x
-                .where((todo) => todo.isDone == 1 && todo.sunday == 1)
-                .toList();
-            _todos = provider.todos;
-          });
-          break;
-        }
-    }
+    setState(() {
+      provider.todos = allList
+          .where((todo) => todo.isDone == 1 && todo.monday == 1 &&
+          todo.tuesday == 1 && todo.wednesday == 1 && todo.thursday == 1 && todo.friday == 1 && todo.saturday == 1 && todo.sunday == 1 )
+          .toList();
+      _todos = provider.todos;
+    });
 
 
   }
