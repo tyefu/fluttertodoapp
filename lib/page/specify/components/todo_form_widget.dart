@@ -6,20 +6,22 @@ class TodoFormWidget extends StatelessWidget {
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangeDescription;
   final VoidCallback onSavedTodo;
-  final VoidCallback onTapDate;
-  final TextEditingController dateController;
+  final VoidCallback onCancel;
 
-  const TodoFormWidget(
-      {Key key,
-      this.title = '',
-      this.description = '',
-      @required this.onChangedTitle,
-      @required this.onChangeDescription,
-      @required this.onSavedTodo,
-      @required this.onTapDate,
-        @required this.dateController,
-      })
-      : super(key: key);
+  // final VoidCallback onTapDate;
+  // final TextEditingController dateController;
+
+  const TodoFormWidget({
+    Key key,
+    this.title = '',
+    this.description = '',
+    @required this.onChangedTitle,
+    @required this.onChangeDescription,
+    @required this.onSavedTodo,
+    @required this.onCancel,
+    // @required this.onTapDate,
+    //   @required this.dateController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +30,32 @@ class TodoFormWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           buildTitle(),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           buildDescription(),
-          SizedBox(height: 20,),
-          buildDate(),
-          SizedBox(height: 20,),
+          // SizedBox(height: 20,),
+          // buildDate(),
+          SizedBox(
+            height: 20,
+          ),
           buildButton(),
+          SizedBox(
+            height: 20,
+          ),
+          cancelButton(),
         ],
       ),
     );
   }
 
- Widget buildTitle() {
-   return TextFormField(
+  Widget buildTitle() {
+    return TextFormField(
       maxLines: 1,
       initialValue: title,
       onChanged: onChangedTitle,
-      validator: (title){
-        if(title.isEmpty){
+      validator: (title) {
+        if (title.isEmpty) {
           return 'The title cannot be empty';
         }
         return null;
@@ -55,13 +65,14 @@ class TodoFormWidget extends StatelessWidget {
         labelText: 'タイトル',
       ),
     );
- }
+  }
+
   Widget buildDescription() {
-   return TextFormField(
+    return TextFormField(
       maxLines: 3,
       initialValue: description,
       onChanged: onChangeDescription,
-      validator: (description){
+      validator: (description) {
         return null;
       },
       decoration: InputDecoration(
@@ -70,34 +81,49 @@ class TodoFormWidget extends StatelessWidget {
       ),
     );
   }
-  Widget buildDate() {
-    return TextFormField(
-      controller: dateController,
-      onTap: onTapDate,
-      validator: (date){
-        if(date.isEmpty){
-          return 'The Date cannot be empty';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-          labelText: '日付',
-          hintText: 'タスクする日付を選択',
-          prefixIcon: Icon(Icons.calendar_today),
 
+  // Widget buildDate() {
+  //   return TextFormField(
+  //     controller: dateController,
+  //     onTap: onTapDate,
+  //     validator: (date){
+  //       if(date.isEmpty){
+  //         return 'The Date cannot be empty';
+  //       }
+  //       return null;
+  //     },
+  //     decoration: InputDecoration(
+  //         labelText: '日付',
+  //         hintText: 'タスクする日付を選択',
+  //         prefixIcon: Icon(Icons.calendar_today),
+  //
+  //     ),
+  //   );
+  // }
+
+  buildButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.black),
+        ),
+        onPressed: onSavedTodo,
+        child: Text('追加'),
       ),
     );
   }
 
-
-  buildButton() {
-   return  SizedBox(
-     width: double.infinity,
-     child: ElevatedButton(
+  cancelButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.black),
         ),
-          onPressed: onSavedTodo, child: Text('追加'),),
-   );
+        onPressed: onCancel,
+        child: Text('キャンセル'),
+      ),
+    );
   }
 }

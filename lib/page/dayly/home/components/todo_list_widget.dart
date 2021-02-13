@@ -24,6 +24,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
   refreshTodoList() async {
     int week = DateTime.now().weekday;
 
+
     final provider = Provider.of<TodosProvider>(context);
     List<Todo> x = await _dbHelper.fetchTodos();
 

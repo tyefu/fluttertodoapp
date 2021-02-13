@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text(MyApp.title),
+        title: Text(MyApp.every),
       ),
       drawer: DrawerNavigation(),
       bottomNavigationBar: BottomNavigationBar(

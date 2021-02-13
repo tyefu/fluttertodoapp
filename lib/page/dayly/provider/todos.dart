@@ -5,6 +5,9 @@ class TodosProvider extends ChangeNotifier {
 
   List<Todo> todos = [
   ];
+  List<Todo> todayTodos = [];
+  List<Todo> weeklyTodos = [];
+  List<Todo> specifyTodos = [];
   int selectedWeekOfDay = 0;
   int selected = 0;
 
@@ -20,10 +23,15 @@ class TodosProvider extends ChangeNotifier {
     selectedWeekOfDay = index;
     notifyListeners();
   }
+  // void addTodoTodays(Todo todo) {
+  //   todayTodos.add(todo);
+  //   notifyListeners();
+  // }
   void addTodo(Todo todo) {
     todos.add(todo);
     notifyListeners();
   }
+
 //
   void removeTodo(Todo todo) {
     todos.remove(todo);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_todo_app/page/dayly/home/home_page.dart';
 import 'package:flutter_app_todo_app/page/dayly/provider/todos.dart';
+import 'package:flutter_app_todo_app/page/today/home/today_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -9,7 +10,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = '毎日やること';
+  static final String today = '今日やること';
+  static final String every = '毎日やること';
   static final String week = '曜日ごとにやること';
   static final String specify = '特定の日にやること';
   // This widget is the root of your application.
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       create: (context) => TodosProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: title,
+        title: today,
         theme: ThemeData(
 
 
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
 
-        home: HomePage(),
+        home: TodayPage(),
       ),
     );
   }

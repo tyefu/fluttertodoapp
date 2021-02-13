@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_todo_app/page/dayly/home/home_page.dart';
 import 'package:flutter_app_todo_app/page/specify/specifyPage.dart';
+import 'package:flutter_app_todo_app/page/today/home/today_page.dart';
 
 
 
@@ -58,6 +59,13 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
               color: Colors.blue,
 
             ),),
+            ListTile(
+              leading: Icon(Icons.fact_check_outlined),
+              title: Text('今日やること'),
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => TodayPage()));
+              },
+            ),
             ListTile(
               leading: Icon(Icons.fact_check_outlined),
               title: Text('毎日やること'),

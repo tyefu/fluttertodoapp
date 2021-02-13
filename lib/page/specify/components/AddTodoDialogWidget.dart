@@ -3,9 +3,10 @@ import 'package:flutter_app_todo_app/model/todo.dart';
 import 'package:flutter_app_todo_app/page/dayly/provider/todos.dart';
 import 'package:flutter_app_todo_app/page/specify/components/todo_form_widget.dart';
 import 'package:flutter_app_todo_app/utils/database_helper.dart';
-import 'package:flutter_app_todo_app/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+DateTime selectedDay = DateTime.now();
 
 class AddTodoDialogWidget extends StatefulWidget {
   @override
@@ -19,13 +20,6 @@ class _AddTodoDialogWidgetState extends State<AddTodoDialogWidget> {
   String date = '';
 
   TextEditingController _todoDateController = TextEditingController();
-  bool monDayChecked = false;
-  bool tuesDayChecked = false;
-  bool wednesDayChecked = false;
-  bool thursDayChecked = false;
-  bool friDayChecked = false;
-  bool saturDayChecked = false;
-  bool sunDayChecked = false;
 
   DatabaseHelper _dbHelper;
 
@@ -99,9 +93,9 @@ class _AddTodoDialogWidgetState extends State<AddTodoDialogWidget> {
                   });
                 },
                 onSavedTodo: addTodo,
-                onTapDate: () async {
-                  await _selectedTodoDate(context);
-                },dateController: _todoDateController,
+                onCancel: () {
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),
@@ -110,23 +104,23 @@ class _AddTodoDialogWidgetState extends State<AddTodoDialogWidget> {
     );
   }
 
-  DateTime _dateTime = DateTime.now();
+  // DateTime _dateTime = DateTime.now();
 
-  _selectedTodoDate(BuildContext context) async {
-    var _pickedDate = await showDatePicker(
-        context: context,
-        initialDate: _dateTime,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100));
-    if (_pickedDate != null) {
-      setState(() {
-        _dateTime = _pickedDate;
-
-        _todoDateController.text = DateFormat('yyyy-MM-dd').format(_pickedDate);
-        print(_pickedDate);
-      });
-    }
-  }
+  // _selectedTodoDate(BuildContext context) async {
+  //   var _pickedDate = await showDatePicker(
+  //       context: context,
+  //       initialDate: _dateTime,
+  //       firstDate: DateTime(2000),
+  //       lastDate: DateTime(2100));
+  //   if (_pickedDate != null) {
+  //     setState(() {
+  //       _dateTime = _pickedDate;
+  //
+  //       _todoDateController.text = DateFormat('yyyy-MM-dd').format(_pickedDate);
+  //       print(_pickedDate);
+  //     });
+  //   }
+  // }
 
   void addTodo() async {
     final isValid = _formKey.currentState.validate();
@@ -134,17 +128,17 @@ class _AddTodoDialogWidgetState extends State<AddTodoDialogWidget> {
       return;
     } else {
       final todo = Todo(
-        createdTime: DateTime.now().toString(),
+        createdTime: selectedDay.toString(),
         title: title,
         description: description,
         id: null,
-        monday: monDayChecked ? 1 : 0,
-        tuesday: tuesDayChecked ? 1 : 0,
-        wednesday: wednesDayChecked ? 1 : 0,
-        thursday: thursDayChecked ? 1 : 0,
-        friday: friDayChecked ? 1 : 0,
-        saturday: saturDayChecked ? 1 : 0,
-        sunday: sunDayChecked ? 1 : 0,
+        monday: 0,
+        tuesday: 0,
+        wednesday: 0,
+        thursday: 0,
+        friday: 0,
+        saturday: 0,
+        sunday: 0,
       );
       await _dbHelper.insertTodo(todo);
       // _showSuccessSnackBar(Text("Todo Create Success"));

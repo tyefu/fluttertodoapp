@@ -5,7 +5,7 @@ import 'package:flutter_app_todo_app/page/dayly/home/components/todo_form_widget
 import 'package:flutter_app_todo_app/page/dayly/provider/todos.dart';
 
 import 'package:flutter_app_todo_app/utils/database_helper.dart';
-import 'package:flutter_app_todo_app/utils/utils.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class AddTodoDialogWidget extends StatefulWidget {
@@ -94,6 +94,7 @@ class _AddTodoDialogWidgetState extends State<AddTodoDialogWidget> {
   }
 
   void addTodo() async {
+
     // await notificationPlugIn.showNotification();
     final isValid = _formKey.currentState.validate();
     if (!isValid) {
@@ -112,6 +113,7 @@ class _AddTodoDialogWidgetState extends State<AddTodoDialogWidget> {
         saturday: 1,
         sunday: 1,
       );
+
         await _dbHelper.insertTodo(todo);
         // _showSuccessSnackBar(Text("Todo Create Success"));
 

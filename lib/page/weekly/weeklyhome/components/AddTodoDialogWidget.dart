@@ -161,7 +161,7 @@ class _AddTodoDialogWidgetState extends State<AddTodoDialogWidget> {
       return;
     } else {
       final todo = Todo(
-        createdTime: DateTime.now().toString(),
+        createdTime: '',
         title: title,
         description: description,
         id: null,
