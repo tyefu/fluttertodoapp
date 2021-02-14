@@ -113,16 +113,23 @@ class _TodoListWidgetState extends State<TodoListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<TodosProvider>(context,listen: false);
     return Column(
       children: [
         WeekOfDayList(),
         _todos.isEmpty
-            ? Center(
-                child: Text(
-                  'No Todos',
-                  style: TextStyle(fontSize: 20),
-                ),
-              )
+            ? Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(height: 150,),
+                Center(
+                    child: Text(
+                      '${provider.selectedWeek}曜日のタスクはございません',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+              ],
+            )
             : Expanded(
                 child: ListView.separated(
                     physics: BouncingScrollPhysics(),

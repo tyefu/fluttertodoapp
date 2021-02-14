@@ -9,6 +9,7 @@ class TodosProvider extends ChangeNotifier {
   List<Todo> weeklyTodos = [];
   List<Todo> specifyTodos = [];
   int selectedWeekOfDay = 0;
+  String selectedWeek = "月";
   int selected = 0;
 
 
@@ -21,6 +22,21 @@ class TodosProvider extends ChangeNotifier {
   //曜日を0~6で表している
   void selectedWeekOfDayFunc(index){
     selectedWeekOfDay = index;
+    if(index == 0){
+      selectedWeek = '月';
+    }else if(index == 1){
+      selectedWeek = '火';
+    }else if(index == 2){
+      selectedWeek = '水';
+    }else if(index == 3){
+      selectedWeek = '木';
+    }else if(index == 4){
+      selectedWeek = '金';
+    }else if(index == 5){
+      selectedWeek = '土';
+    }else if(index == 6){
+      selectedWeek = '日';
+    }
     notifyListeners();
   }
   // void addTodoTodays(Todo todo) {

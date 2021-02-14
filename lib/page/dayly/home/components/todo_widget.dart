@@ -47,13 +47,13 @@ class _TodoWidgetState extends State<TodoWidget> {
               onTap: () {
                 editTodo(context, widget.todo);
               },
-              caption: 'Edit',
+              caption: '編集',
             ),
           ],
           secondaryActions: [
             IconSlideAction(
               color: Colors.red,
-              caption: 'Delete',
+              caption: '削除',
               onTap: () async {
                 await deleteTodo(context, widget.todo);
                 // refreshTodoList();
@@ -123,7 +123,7 @@ class _TodoWidgetState extends State<TodoWidget> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).primaryColor,
-                      fontSize: 22,
+                      fontSize: 20,
                     ),
                   ),
                   if (widget.todo.description.isNotEmpty)
@@ -131,7 +131,7 @@ class _TodoWidgetState extends State<TodoWidget> {
                       margin: EdgeInsets.only(top: 4),
                       child: Text(
                         widget.todo.description,
-                        style: TextStyle(fontSize: 20, height: 1.5),
+                        style: TextStyle(fontSize: 12, height: 1.5),
                       ),
                     ),
                 ],

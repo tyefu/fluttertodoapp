@@ -48,6 +48,7 @@ class _CompletedListWidgetState extends State<CompletedListWidget> {
       _dbHelper = DatabaseHelper.instance;
     });
 
+
   }
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class _CompletedListWidgetState extends State<CompletedListWidget> {
     // final todos = provider.todosCompleted;
 
     return _todos.isEmpty ? Center(
-      child: Text('No completed tasks',
+      child: Text('毎日やる完了したタスクはございません',
         style: TextStyle(fontSize: 20),),
     )
         :

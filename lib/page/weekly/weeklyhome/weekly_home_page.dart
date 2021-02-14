@@ -55,7 +55,7 @@ class _WeeklyHomePageState extends State<WeeklyHomePage> {
         onPressed: (){
           showDialog(context: context,
           child: AddTodoDialogWidget(),
-            barrierDismissible: false);
+            barrierDismissible: true);
         },
         child: Icon(Icons.add),
       ),

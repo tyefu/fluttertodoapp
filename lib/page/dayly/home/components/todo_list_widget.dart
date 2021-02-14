@@ -63,7 +63,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
 
 
     return _todos.isEmpty ? Center(
-      child: Text('No Todos',
+      child: Text('毎日やるタスクはございません',
         style: TextStyle(fontSize: 20),),
     )
         :

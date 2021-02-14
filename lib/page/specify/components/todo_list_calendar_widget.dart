@@ -27,11 +27,39 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
 
   List<dynamic> _selectedTodos = [];
 
+  String  todoDateCreatedToFormat(Todo todo){
 
+    if(todo.createdTime == ''){
+      return '';
+    }else {
+      DateFormat inputFormat = DateFormat('yyyy-MM-dd');
+
+      DateTime dateTime = inputFormat.parse(todo.createdTime);
+      String todoString = dateTime.toString();
+      return todoString;
+    }
+  }
+  refreshTodoList() async {
+    String formattedSelectedDate = (DateTime.parse(DateFormat('yyyy-MM-dd')
+        .format(selectedDay)).toString());
+    int week = DateTime.now().weekday;
+
+
+
+    List<Todo> x = await _dbHelper.fetchTodos();
+
+    setState(() {
+     _todos = x
+          .where((todo) => todo.isDone == 0 && todoDateCreatedToFormat(todo) == formattedSelectedDate)
+          .toList();
+     print(_todos);
+      // _todos = provider.todos;
+    });
+  }
   fetchTodoList() async {
     print('00--------------');
     carendarTodos = {};
-    final provider = Provider.of<TodosProvider>(context);
+
 
     List<Todo> x = await _dbHelper.fetchTodos();
     x.forEach((element) {
@@ -66,11 +94,15 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
 
 
   void _onDaySelected(DateTime day, List todos, List holidays) {
+
     setState(() {
       selectedDay = day;
 
+
       _selectedTodos = todos;
+
     });
+    refreshTodoList();
   }
 
   void _create(BuildContext context) {
@@ -166,7 +198,7 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
             ));
   }
 
-  Widget events(var d) {
+  Widget events(String d) {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Container(
@@ -286,7 +318,7 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
     setState(() {
       _dbHelper = DatabaseHelper.instance;
     });
-
+    _calendarController = CalendarController();
 
   }
 
@@ -294,9 +326,7 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-
     fetchTodoList();
-    _calendarController = CalendarController();
   }
 
   @override
@@ -309,25 +339,23 @@ class _TodoListCalendarWidgetState extends State<TodoListCalendarWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: ListView(
+      backgroundColor: Colors.white,
+      body: Column(
         children: [
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Calendar',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ],
-            ),
-          ),
           calendar(),
           eventTitle(),
-          Column(
-            children: _calendarDayWidgets,
+          Expanded(
+            child: ListView.separated(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.all(16),
+                separatorBuilder: (context, index) => Container(
+                  height: 16,
+                ),
+                itemBuilder: (context, index) {
+                  final todo = _todos[index];
+                  return TodoWidget(todo: todo);
+                },
+                itemCount: _todos.length),
           ),
           SizedBox(
             height: 60,

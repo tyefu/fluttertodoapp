@@ -52,7 +52,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
             Navigator.of(context).pop();
           })
         ],
-        title: Text('Edit Todo'),
+        title: Text('毎日やること編集'),
       ),
       body: Padding(
         padding:  EdgeInsets.all(16.0),

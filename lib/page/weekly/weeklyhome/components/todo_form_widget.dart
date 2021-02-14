@@ -39,13 +39,13 @@ class TodoFormWidget extends StatelessWidget {
       onChanged: onChangedTitle,
       validator: (title){
         if(title.isEmpty){
-          return 'The title cannot be empty';
+          return '※タイトルは必須';
         }
         return null;
       },
       decoration: InputDecoration(
         border: UnderlineInputBorder(),
-        labelText: 'Title',
+        labelText: 'タイトル',
       ),
     );
  }
@@ -55,14 +55,12 @@ class TodoFormWidget extends StatelessWidget {
       initialValue: description,
       onChanged: onChangeDescription,
       validator: (description){
-        if(description.isEmpty){
-          return 'The description cannot be empty';
-        }
+
         return null;
       },
       decoration: InputDecoration(
         border: UnderlineInputBorder(),
-        labelText: 'Description',
+        labelText: '説明',
       ),
     );
   }
@@ -74,7 +72,7 @@ class TodoFormWidget extends StatelessWidget {
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.black),
         ),
-          onPressed: onSavedTodo, child: Text('Save'),),
+          onPressed: onSavedTodo, child: Text('追加'),),
    );
   }
 }

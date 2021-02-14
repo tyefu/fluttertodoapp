@@ -34,6 +34,7 @@ class _CategoryListState extends State<WeekOfDayList> {
 
           provider.selectedWeekOfDayFunc(index);
 
+
             print(provider.selectedWeekOfDay);
         },
         child: Column(
